@@ -1,0 +1,32 @@
+name: '1_1'
+source code: |-
+  input: '1+1'
+  blank: ' '
+  start state: erase
+  table:
+    erase:
+      1 : {write: ' ', R: go_right}
+      + : R
+      
+    go_right:
+      [1, +] : R
+      [' ', = ] : {R: write}
+    
+    write:
+      ' ' : {write: 1, L: tmp}
+      1 : R
+      
+    tmp:
+      ' ' : {write: '=', L: go_left}
+      1 : L
+      '=' : {L : go_left}
+      
+    go_left:
+      [1, +] : L
+      ' ' : {write: 1, R: erase}
+positions:
+  erase: {x: 520.9, y: 258.55, fixed: false}
+  go_right: {x: 445.47, y: 137.71, fixed: false}
+  write: {x: 307.22, y: 172.04, fixed: false}
+  tmp: {x: 297.18, y: 314.13, fixed: false}
+  go_left: {x: 429.23, y: 367.57, fixed: false}
