@@ -1,0 +1,70 @@
+name: '2_2'
+source code: |-
+  # input: '(([])({}))'
+  input: '(([])({})'
+  blank: ' '
+  start state: start
+  table:
+    start:
+      ['(', '[', '{', 'x', 'y', 'z'] : R
+      ')' : {write: 'x', L: q_round}
+      ']' : {write: 'y', L: q_sq}
+      '}' : {write: 'z', L: q_fig}
+      ' ' : {L: end}
+      
+    q_round:
+      '(' : {write: 'x', R: start}
+      [ ']', '}', '[', '{', 'x', 'y', 'z'] : L
+      
+    q_sq:
+      '[' : {write: 'y', R: start}
+      [')', '}', '(', '{', 'x', 'y', 'z'] : L
+      
+    q_fig:
+      '{' : {write: 'z', R: start}
+      [')', ']', '(', '[', 'x', 'y', 'z'] : L
+      
+    end:
+      ['x', 'y', 'z'] : L
+      ' ' : {L: accept}
+      
+    accept:
+      
+positions:
+  start: {x: 411.74, y: 231.94, fixed: false}
+  q_round: {x: 473.15, y: 105.05, fixed: false}
+  q_sq: {x: 292.89, y: 155.32, fixed: false}
+  q_fig: {x: 545.32, y: 278.71, fixed: false}
+  end: {x: 416.73, y: 375.16, fixed: false}
+  accept: {x: 276.59, y: 351.28, fixed: false}
+editor contents: |-
+  # input: '(([])({}))'
+  input: '(([])({})'
+  blank: ' '
+  start state: start
+  table:
+    start:
+      ['(', '[', '{', 'x', 'y', 'z'] : R
+      ')' : {write: 'x', L: q_round} # find close paranthesis
+      ']' : {write: 'y', L: q_sq}
+      '}' : {write: 'z', L: q_fig}
+      ' ' : {L: end}
+      
+    q_round: # then find open paranthesis
+      '(' : {write: 'x', R: start}
+      [ ']', '}', '[', '{', 'x', 'y', 'z'] : L
+      
+    q_sq:
+      '[' : {write: 'y', R: start}
+      [')', '}', '(', '{', 'x', 'y', 'z'] : L
+      
+    q_fig:
+      '{' : {write: 'z', R: start}
+      [')', ']', '(', '[', 'x', 'y', 'z'] : L
+      
+    end:
+      ['x', 'y', 'z'] : L
+      ' ' : {L: accept}
+      
+    accept:
+      
