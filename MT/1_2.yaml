@@ -1,0 +1,54 @@
+name: unary multiplication
+source code: |-
+  input: '11*111' # a*b
+  blank: ' '
+  start state: erase_a
+  table:
+    erase_a:
+      1 : {write: ' ', R: to_b}
+      '*' : {R : done}
+      
+    to_b:
+      1 : R
+      '*' : {R: erase_b}
+      
+    erase_b:
+      1: {write: ' ', R: to_answer}
+      '=' : {L: left_a}
+      
+    to_answer:
+      1 : R
+      [' ', '=']: {R: tmp}
+      
+    tmp:
+      1 : {R: add}
+      ' ' : {L: eq}
+      
+    eq:
+      ' ' : {write: '=', R: add}
+      
+    add:
+      1 : R
+      ' ' : {write: 1, L: left_b}
+      
+    left_b:
+      [1, '='] : L
+      ' ' : {write: 1, R: erase_b}
+      
+    left_a:
+      [1, '*'] : L
+      ' ' : {write: 1, R: erase_a}
+      
+    done:
+      1 : R
+positions:
+  erase_a: {x: 342.08, y: 23.61, fixed: false}
+  to_b: {x: 439.72, y: 130.72, fixed: false}
+  erase_b: {x: 335.09, y: 246.45, fixed: false}
+  to_answer: {x: 486.76, y: 220.96, fixed: false}
+  tmp: {x: 509.7, y: 354.22, fixed: false}
+  eq: {x: 540.79, y: 480, fixed: false}
+  add: {x: 400, y: 450}
+  left_b: {x: 191.88, y: 314.08}
+  left_a: {x: 239.25, y: 131.21, fixed: false}
+  done: {x: 336.98, y: 160.58, fixed: false}
