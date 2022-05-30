@@ -1,0 +1,36 @@
+name: '2_1'
+source code: |
+  input: '001122'
+  # input: '0011122'
+  blank: ' '
+  start state: s_0
+  table:
+    s_0:
+      0 : {write : 'x', R: s_1 }
+      'y' : {R : to_end}
+      
+    s_1:
+      [0, 'y'] : R
+      1 : {write : 'y', R: s_2}
+      
+    s_2:
+      [1, 'z'] : R
+      2 : {write : 'z', L: go_left}
+      
+    go_left:
+      ['z', 1, 'y', 0]: L
+      'x' : {R: s_0}
+      
+    to_end:
+      ['y', 'z'] : R
+      ' ' : {L : accept}
+      
+    accept:
+      
+positions:
+  s_0: {x: 400.48, y: 258.26, fixed: false}
+  s_1: {x: 533.65, y: 205.46, fixed: false}
+  s_2: {x: 430.53, y: 105.53, fixed: false}
+  go_left: {x: 297.02, y: 158.72, fixed: false}
+  to_end: {x: 464.25, y: 386.58, fixed: false}
+  accept: {x: 320.82, y: 385.91, fixed: false}
